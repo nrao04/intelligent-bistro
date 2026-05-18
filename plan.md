@@ -8,9 +8,9 @@
 - [x] Stub out root README.md
 
 ## Phase 2: Menu Data
-- [ ] Create shared menuItems.ts with 12+ items across 3 categories
-- [ ] Categories: Mains, Sides, Drinks
-- [ ] Each item has: id, name, description, price, category, icon (string),
+- [x] Create shared menuItems.ts with 12+ items across 3 categories
+- [x] Categories: Mains, Sides, Drinks
+- [x] Each item has: id, name, description, price, category, icon (string),
       calories, isPopular, customizations[]
 
 ## Phase 3: Backend

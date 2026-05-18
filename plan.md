@@ -27,11 +27,11 @@
 - [x] Cart operations: addItem, removeItem, updateQuantity, clearCart, applyAIActions
 
 ## Phase 5: Frontend — Menu Screen
-- [ ] Header with restaurant name and cart icon with item count badge
-- [ ] Horizontal category filter pills (All, Mains, Sides, Drinks)
-- [ ] Scrollable menu item cards (icon, name, description, price, calories, Popular label)
-- [ ] Loading skeleton on mount (800ms fake delay)
-- [ ] Add button goes direct to cart OR opens customization modal if item has options
+- [x] Header with restaurant name and cart icon with item count badge
+- [x] Horizontal category filter pills (All, Mains, Sides, Drinks)
+- [x] Scrollable menu item cards (icon, name, description, price, calories, Popular label)
+- [x] Loading skeleton on mount (800ms fake delay)
+- [x] Add button goes direct to cart OR opens customization modal if item has options
 
 ## Phase 6: Frontend — Cart Screen
 - [ ] Cart item list with quantity stepper and remove button

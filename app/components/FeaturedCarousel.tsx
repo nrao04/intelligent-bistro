@@ -123,6 +123,7 @@ export function FeaturedCarousel({ onAdd }: FeaturedCarouselProps) {
       </Text>
       <ScrollView
         horizontal
+        style={{ flexGrow: 0 }}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: spacing.lg }}
       >

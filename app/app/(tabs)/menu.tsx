@@ -111,6 +111,7 @@ export default function MenuScreen() {
       {/* Category pills */}
       <ScrollView
         horizontal
+        style={{ flexGrow: 0 }}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
           paddingHorizontal: spacing.lg,

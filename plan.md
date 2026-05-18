@@ -40,13 +40,13 @@
 - [x] Empty state with message and icon
 
 ## Phase 7: Frontend — AI Chat
-- [ ] Floating action button (bottom-right, both tabs)
-- [ ] Bottom sheet modal with chat message list
-- [ ] User messages right-aligned, AI messages left-aligned with small label
-- [ ] Typing indicator while waiting for response
-- [ ] Starter suggestion chips: "What's popular?", "Add a combo meal", "Clear my cart"
-- [ ] Auto-focus input when sheet opens
-- [ ] POST to backend, apply returned actions to cart in real time
+- [x] Floating action button (bottom-right, both tabs)
+- [x] Bottom sheet modal with chat message list
+- [x] User messages right-aligned, AI messages left-aligned with small label
+- [x] Typing indicator while waiting for response
+- [x] Starter suggestion chips: "What's popular?", "Add a combo meal", "Clear my cart"
+- [x] Auto-focus input when sheet opens
+- [x] POST to backend, apply returned actions to cart in real time
 
 ## Phase 8: Polish
 - [ ] Reanimated animations on cart badge, item add confirmation, chat sheet open/close

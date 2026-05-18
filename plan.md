@@ -56,7 +56,7 @@
 - [x] No placeholder text, no TODO comments, no console.log left in production code
 
 ## Phase 9: Final Check and README
-- [ ] Manual walkthrough of all core flows passes
-- [ ] README.md complete with accurate setup instructions
-- [ ] .env confirmed in .gitignore, no keys hardcoded anywhere
-- [ ] plan.md fully checked off
+- [x] Manual walkthrough of all core flows passes
+- [x] README.md complete with accurate setup instructions
+- [x] .env confirmed in .gitignore, no keys hardcoded anywhere
+- [x] plan.md fully checked off

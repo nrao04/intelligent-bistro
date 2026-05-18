@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "The Intelligent Bistro",
+    "slug": "intelligent-bistro",
+    "scheme": "intelligent-bistro",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

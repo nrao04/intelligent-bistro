@@ -22,9 +22,9 @@
 - [x] Endpoint tested with curl before moving to frontend
 
 ## Phase 4: Frontend — Core Structure
-- [ ] Bottom tab navigator (Menu tab, Cart tab)
-- [ ] Global cart state via React Context
-- [ ] Cart operations: addItem, removeItem, updateQuantity, clearCart, applyAIActions
+- [x] Bottom tab navigator (Menu tab, Cart tab)
+- [x] Global cart state via React Context
+- [x] Cart operations: addItem, removeItem, updateQuantity, clearCart, applyAIActions
 
 ## Phase 5: Frontend — Menu Screen
 - [ ] Header with restaurant name and cart icon with item count badge

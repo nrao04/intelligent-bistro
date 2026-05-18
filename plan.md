@@ -34,10 +34,10 @@
 - [x] Add button goes direct to cart OR opens customization modal if item has options
 
 ## Phase 6: Frontend — Cart Screen
-- [ ] Cart item list with quantity stepper and remove button
-- [ ] Order summary: subtotal, 8% tax, total
-- [ ] Place Order button clears cart and shows success toast
-- [ ] Empty state with message and icon
+- [x] Cart item list with quantity stepper and remove button
+- [x] Order summary: subtotal, 8% tax, total
+- [x] Place Order button clears cart and shows success toast
+- [x] Empty state with message and icon
 
 ## Phase 7: Frontend — AI Chat
 - [ ] Floating action button (bottom-right, both tabs)

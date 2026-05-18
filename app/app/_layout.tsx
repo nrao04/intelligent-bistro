@@ -5,6 +5,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+import { AppToast } from "../components/AppToast";
 import { CartProvider } from "../context/CartContext";
 
 export default function RootLayout() {
@@ -22,6 +23,7 @@ export default function RootLayout() {
             <Stack.Screen name="index" />
             <Stack.Screen name="(tabs)" />
           </Stack>
+          <AppToast />
         </BottomSheetModalProvider>
       </CartProvider>
     </GestureHandlerRootView>

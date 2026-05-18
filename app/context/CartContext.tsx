@@ -27,8 +27,12 @@ type CartContextValue = {
   items: CartItem[];
   itemCount: number;
   addItem: (item: MenuItem, quantity: number, customization?: string) => void;
-  removeItem: (itemId: string) => void;
-  updateQuantity: (itemId: string, quantity: number) => void;
+  removeItem: (itemId: string, customization?: string) => void;
+  updateQuantity: (
+    itemId: string,
+    quantity: number,
+    customization?: string
+  ) => void;
   clearCart: () => void;
   applyAIActions: (actions: AIAction[]) => void;
 };
@@ -82,24 +86,43 @@ export function CartProvider({ children }: { children: ReactNode }) {
     []
   );
 
-  const removeItem = useCallback((itemId: string) => {
-    setItems((current) => current.filter((line) => line.itemId !== itemId));
-  }, []);
-
-  const updateQuantity = useCallback((itemId: string, quantity: number) => {
-    if (quantity <= 0) {
-      setItems((current) => current.filter((line) => line.itemId !== itemId));
-      return;
-    }
-
+  const removeItem = useCallback((itemId: string, customization?: string) => {
     setItems((current) => {
-      const index = current.findIndex((line) => line.itemId === itemId);
-      if (index === -1) return current;
-      return current.map((line, i) =>
-        i === index ? { ...line, quantity } : line
-      );
+      if (customization !== undefined) {
+        const key = lineKey(itemId, customization);
+        return current.filter(
+          (line) => lineKey(line.itemId, line.customization) !== key
+        );
+      }
+      return current.filter((line) => line.itemId !== itemId);
     });
   }, []);
+
+  const updateQuantity = useCallback(
+    (itemId: string, quantity: number, customization?: string) => {
+      const key = lineKey(itemId, customization);
+
+      if (quantity <= 0) {
+        setItems((current) =>
+          current.filter(
+            (line) => lineKey(line.itemId, line.customization) !== key
+          )
+        );
+        return;
+      }
+
+      setItems((current) => {
+        const index = current.findIndex(
+          (line) => lineKey(line.itemId, line.customization) === key
+        );
+        if (index === -1) return current;
+        return current.map((line, i) =>
+          i === index ? { ...line, quantity } : line
+        );
+      });
+    },
+    []
+  );
 
   const clearCart = useCallback(() => {
     setItems([]);

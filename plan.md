@@ -14,12 +14,12 @@
       calories, isPopular, customizations[]
 
 ## Phase 3: Backend
-- [ ] POST /api/chat endpoint built and working
-- [ ] Claude API integration with structured JSON response enforced
-- [ ] System prompt instructs Claude to return reply + actions[]
-- [ ] Action types: ADD_ITEM, REMOVE_ITEM, UPDATE_QUANTITY, CLEAR_CART
-- [ ] CORS, dotenv, and error handling all in place
-- [ ] Endpoint tested with curl before moving to frontend
+- [x] POST /api/chat endpoint built and working
+- [x] Claude API integration with structured JSON response enforced
+- [x] System prompt instructs Claude to return reply + actions[]
+- [x] Action types: ADD_ITEM, REMOVE_ITEM, UPDATE_QUANTITY, CLEAR_CART
+- [x] CORS, dotenv, and error handling all in place
+- [x] Endpoint tested with curl before moving to frontend
 
 ## Phase 4: Frontend — Core Structure
 - [ ] Bottom tab navigator (Menu tab, Cart tab)

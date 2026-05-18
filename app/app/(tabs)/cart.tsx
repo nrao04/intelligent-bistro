@@ -8,6 +8,7 @@ import { CartLineItem } from "../../components/CartLineItem";
 import { PlaceOrderButton } from "../../components/PlaceOrderButton";
 import { useCart, type CartItem } from "../../context/CartContext";
 import { formatPrice } from "../../lib/format";
+import { colors, spacing, typography } from "../../lib/theme";
 
 const TAX_RATE = 0.08;
 
@@ -36,9 +37,15 @@ export default function CartScreen() {
 
   if (items.length === 0) {
     return (
-      <SafeAreaView className="flex-1 bg-[#1a1a1a]" edges={["top"]}>
-        <View className="px-4 pb-4 pt-2">
-          <Text className="text-2xl font-semibold text-white">Cart</Text>
+      <SafeAreaView style={{ flex: 1, backgroundColor: colors.base }} edges={["top"]}>
+        <View
+          style={{
+            paddingHorizontal: spacing.lg,
+            paddingBottom: spacing.lg,
+            paddingTop: spacing.sm,
+          }}
+        >
+          <Text style={[typography.heading, { color: colors.textPrimary }]}>Cart</Text>
         </View>
         <CartEmptyState />
       </SafeAreaView>
@@ -46,9 +53,15 @@ export default function CartScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-[#1a1a1a]" edges={["top"]}>
-      <View className="px-4 pb-2 pt-2">
-        <Text className="text-2xl font-semibold text-white">Cart</Text>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.base }} edges={["top"]}>
+      <View
+        style={{
+          paddingHorizontal: spacing.lg,
+          paddingBottom: spacing.sm,
+          paddingTop: spacing.sm,
+        }}
+      >
+        <Text style={[typography.heading, { color: colors.textPrimary }]}>Cart</Text>
       </View>
 
       <FlatList
@@ -75,29 +88,83 @@ export default function CartScreen() {
             onRemove={() => removeItem(item.itemId, item.customization)}
           />
         )}
-        contentContainerClassName="px-4 pt-2"
+        contentContainerStyle={{
+          paddingHorizontal: spacing.lg,
+          paddingTop: spacing.sm,
+        }}
         showsVerticalScrollIndicator={false}
       />
 
-      <View className="border-t border-[#2e2e2e] bg-[#1a1a1a] px-4 pb-4 pt-4">
-        <View className="rounded-xl border border-[#2e2e2e] bg-[#222222] p-4">
-          <View className="mb-3 flex-row items-center justify-between">
-            <Text className="text-sm text-neutral-400">Subtotal</Text>
-            <Text className="text-sm font-medium text-white">
+      <View
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: colors.border,
+          backgroundColor: colors.base,
+          paddingHorizontal: spacing.lg,
+          paddingBottom: spacing.lg,
+          paddingTop: spacing.lg,
+        }}
+      >
+        <View
+          style={{
+            borderRadius: spacing.md,
+            borderWidth: 1,
+            borderColor: colors.border,
+            backgroundColor: colors.surface,
+            padding: spacing.lg,
+          }}
+        >
+          <View
+            style={{
+              marginBottom: spacing.md,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={[typography.caption, { color: colors.textSecondary }]}>
+              Subtotal
+            </Text>
+            <Text style={[typography.bodyMedium, { color: colors.textPrimary }]}>
               {formatPrice(subtotal)}
             </Text>
           </View>
 
-          <View className="mb-3 flex-row items-center justify-between">
-            <Text className="text-sm text-neutral-400">Tax (8%)</Text>
-            <Text className="text-sm font-medium text-white">
+          <View
+            style={{
+              marginBottom: spacing.md,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={[typography.caption, { color: colors.textSecondary }]}>
+              Tax (8%)
+            </Text>
+            <Text style={[typography.bodyMedium, { color: colors.textPrimary }]}>
               {formatPrice(tax)}
             </Text>
           </View>
 
-          <View className="flex-row items-center justify-between border-t border-[#2e2e2e] pt-3">
-            <Text className="text-base font-semibold text-white">Total</Text>
-            <Text className="text-lg font-bold text-white">
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              borderTopWidth: 1,
+              borderTopColor: colors.border,
+              paddingTop: spacing.md,
+            }}
+          >
+            <Text style={[typography.bodyMedium, { color: colors.textPrimary }]}>
+              Total
+            </Text>
+            <Text
+              style={[
+                typography.title,
+                { color: colors.textPrimary, fontSize: spacing.lg },
+              ]}
+            >
               {formatPrice(total)}
             </Text>
           </View>

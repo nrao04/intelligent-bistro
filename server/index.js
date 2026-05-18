@@ -271,6 +271,4 @@ app.use((err, _req, res, _next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT);

@@ -7,6 +7,8 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { colors, spacing } from "../lib/theme";
+
 function SkeletonCard() {
   const opacity = useSharedValue(0.45);
 
@@ -24,17 +26,72 @@ function SkeletonCard() {
 
   return (
     <Animated.View
-      style={pulseStyle}
-      className="mb-3 flex-row rounded-xl bg-[#262626] p-4"
+      style={[
+        pulseStyle,
+        {
+          marginBottom: spacing.md,
+          flexDirection: "row",
+          borderRadius: spacing.md,
+          backgroundColor: colors.surfaceRaised,
+          padding: spacing.lg,
+        },
+      ]}
     >
-      <View className="mr-4 h-12 w-12 rounded-lg bg-[#333333]" />
-      <View className="flex-1">
-        <View className="mb-2 h-4 w-3/5 rounded bg-[#333333]" />
-        <View className="mb-2 h-3 w-full rounded bg-[#333333]" />
-        <View className="h-3 w-4/5 rounded bg-[#333333]" />
-        <View className="mt-3 h-3 w-1/3 rounded bg-[#333333]" />
+      <View
+        style={{
+          marginRight: spacing.lg,
+          height: spacing.xxl + spacing.lg,
+          width: spacing.xxl + spacing.lg,
+          borderRadius: spacing.sm,
+          backgroundColor: colors.border,
+        }}
+      />
+      <View style={{ flex: 1 }}>
+        <View
+          style={{
+            marginBottom: spacing.sm,
+            height: spacing.lg,
+            width: "60%",
+            borderRadius: spacing.xs,
+            backgroundColor: colors.border,
+          }}
+        />
+        <View
+          style={{
+            marginBottom: spacing.sm,
+            height: spacing.md,
+            width: "100%",
+            borderRadius: spacing.xs,
+            backgroundColor: colors.border,
+          }}
+        />
+        <View
+          style={{
+            height: spacing.md,
+            width: "80%",
+            borderRadius: spacing.xs,
+            backgroundColor: colors.border,
+          }}
+        />
+        <View
+          style={{
+            marginTop: spacing.md,
+            height: spacing.md,
+            width: "33%",
+            borderRadius: spacing.xs,
+            backgroundColor: colors.border,
+          }}
+        />
       </View>
-      <View className="ml-3 h-9 w-16 rounded-lg bg-[#333333]" />
+      <View
+        style={{
+          marginLeft: spacing.md,
+          height: spacing.xl + spacing.sm,
+          width: spacing.xxl + spacing.lg,
+          borderRadius: spacing.sm,
+          backgroundColor: colors.border,
+        }}
+      />
     </Animated.View>
   );
 }
@@ -45,7 +102,11 @@ export function MenuSkeletonList() {
       data={[1, 2, 3, 4, 5, 6]}
       keyExtractor={(item) => String(item)}
       renderItem={() => <SkeletonCard />}
-      contentContainerClassName="px-4 pb-8 pt-2"
+      contentContainerStyle={{
+        paddingHorizontal: spacing.lg,
+        paddingBottom: spacing.xxl,
+        paddingTop: spacing.sm,
+      }}
       scrollEnabled={false}
     />
   );

@@ -9,6 +9,8 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { colors, spacing, typography } from "../../lib/theme";
+
 function TypingDot({ delay }: { delay: number }) {
   const opacity = useSharedValue(0.35);
 
@@ -32,21 +34,55 @@ function TypingDot({ delay }: { delay: number }) {
 
   return (
     <Animated.View
-      style={style}
-      className="mx-0.5 h-2 w-2 rounded-full bg-neutral-400"
+      style={[
+        style,
+        {
+          marginHorizontal: spacing.xs / 2,
+          height: spacing.sm,
+          width: spacing.sm,
+          borderRadius: spacing.xs,
+          backgroundColor: colors.textSecondary,
+        },
+      ]}
     />
   );
 }
 
 export function TypingIndicator() {
   return (
-    <View className="mb-4 flex-row items-end px-4">
-      <View className="mr-2 w-6">
-        <Text className="text-[10px] font-semibold uppercase tracking-wide text-neutral-500">
+    <View
+      style={{
+        marginBottom: spacing.lg,
+        flexDirection: "row",
+        alignItems: "flex-end",
+        paddingHorizontal: spacing.lg,
+      }}
+    >
+      <View style={{ marginRight: spacing.sm, width: spacing.xl }}>
+        <Text
+          style={[
+            typography.label,
+            {
+              color: colors.textMuted,
+              textTransform: "uppercase",
+              letterSpacing: 0.8,
+            },
+          ]}
+        >
           AI
         </Text>
       </View>
-      <View className="flex-row items-center rounded-2xl rounded-bl-sm bg-[#262626] px-4 py-3">
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          borderRadius: spacing.lg,
+          borderBottomLeftRadius: spacing.xs,
+          backgroundColor: colors.surfaceRaised,
+          paddingHorizontal: spacing.lg,
+          paddingVertical: spacing.md,
+        }}
+      >
         <TypingDot delay={0} />
         <TypingDot delay={180} />
         <TypingDot delay={360} />

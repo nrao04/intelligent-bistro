@@ -3,20 +3,21 @@ import Toast, {
   type BaseToastProps,
 } from "react-native-toast-message";
 
+import { colors, spacing, typography } from "../lib/theme";
+
 function SuccessToast(props: BaseToastProps) {
   return (
     <BaseToast
       {...props}
       style={{
-        borderLeftColor: "#f59e0b",
-        backgroundColor: "#262626",
-        borderLeftWidth: 4,
+        borderLeftColor: colors.accent,
+        backgroundColor: colors.surfaceRaised,
+        borderLeftWidth: spacing.xs,
       }}
-      contentContainerStyle={{ paddingHorizontal: 16 }}
+      contentContainerStyle={{ paddingHorizontal: spacing.lg }}
       text1Style={{
-        color: "#ffffff",
-        fontSize: 15,
-        fontWeight: "600",
+        ...typography.bodyMedium,
+        color: colors.textPrimary,
       }}
     />
   );

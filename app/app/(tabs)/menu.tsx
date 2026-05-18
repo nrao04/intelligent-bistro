@@ -3,13 +3,7 @@ import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { ShoppingCart } from "lucide-react-native";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  FlatList,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { FlatList, Pressable, ScrollView, Text, View } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -22,6 +16,7 @@ import { CustomizationSheet } from "../../components/CustomizationSheet";
 import { MenuItemCard } from "../../components/MenuItemCard";
 import { MenuSkeletonList } from "../../components/MenuSkeletonList";
 import { useCart } from "../../context/CartContext";
+import { colors, spacing, typography } from "../../lib/theme";
 import { menuItems, type MenuCategory, type MenuItem } from "@shared/menuItems";
 
 type CategoryFilter = "all" | MenuCategory;
@@ -101,9 +96,18 @@ export default function MenuScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 bg-[#1a1a1a]" edges={["top"]}>
-      <View className="flex-row items-center justify-between px-4 pb-4 pt-2">
-        <Text className="text-2xl font-semibold tracking-tight text-white">
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.base }} edges={["top"]}>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingHorizontal: spacing.lg,
+          paddingBottom: spacing.lg,
+          paddingTop: spacing.sm,
+        }}
+      >
+        <Text style={[typography.heading, { color: colors.textPrimary }]}>
           The Intelligent Bistro
         </Text>
 
@@ -111,9 +115,9 @@ export default function MenuScreen() {
           accessibilityRole="button"
           accessibilityLabel="Open cart"
           onPress={() => router.push("/cart")}
-          className="relative p-2"
+          style={{ position: "relative", padding: spacing.sm }}
         >
-          <ShoppingCart color="#ffffff" size={24} strokeWidth={2} />
+          <ShoppingCart color={colors.textPrimary} size={24} strokeWidth={2} />
           <CartBadge count={itemCount} />
         </Pressable>
       </View>
@@ -121,7 +125,11 @@ export default function MenuScreen() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerClassName="px-4 pb-4 gap-2"
+        contentContainerStyle={{
+          paddingHorizontal: spacing.lg,
+          paddingBottom: spacing.lg,
+          gap: spacing.sm,
+        }}
       >
         {CATEGORIES.map((category) => {
           const isSelected = selectedCategory === category.key;
@@ -131,16 +139,23 @@ export default function MenuScreen() {
               accessibilityRole="button"
               accessibilityState={{ selected: isSelected }}
               onPress={() => setSelectedCategory(category.key)}
-              className={`mr-2 rounded-full border px-4 py-2 ${
-                isSelected
-                  ? "border-[#f59e0b] bg-[#f59e0b]"
-                  : "border-[#404040] bg-transparent"
-              }`}
+              style={{
+                marginRight: spacing.sm,
+                borderRadius: 999,
+                borderWidth: 1,
+                borderColor: isSelected ? colors.accent : colors.borderMuted,
+                backgroundColor: isSelected ? colors.accent : "transparent",
+                paddingHorizontal: spacing.lg,
+                paddingVertical: spacing.sm,
+              }}
             >
               <Text
-                className={`text-sm font-medium ${
-                  isSelected ? "text-white" : "text-neutral-400"
-                }`}
+                style={[
+                  typography.label,
+                  {
+                    color: isSelected ? colors.iconOnAccent : colors.textSecondary,
+                  },
+                ]}
               >
                 {category.label}
               </Text>
@@ -149,16 +164,19 @@ export default function MenuScreen() {
         })}
       </ScrollView>
 
-      <View className="relative flex-1">
+      <View style={{ position: "relative", flex: 1 }}>
         {isLoading ? (
-          <Animated.View style={skeletonStyle} className="absolute inset-0">
+          <Animated.View style={[skeletonStyle, { position: "absolute", inset: 0 }]}>
             <MenuSkeletonList />
           </Animated.View>
         ) : null}
 
         <Animated.View
-          style={contentStyle}
-          className={`flex-1 ${isLoading ? "absolute inset-0" : ""}`}
+          style={[
+            contentStyle,
+            { flex: 1 },
+            isLoading ? { position: "absolute", inset: 0 } : null,
+          ]}
           pointerEvents={isLoading ? "none" : "auto"}
         >
           <FlatList
@@ -167,7 +185,10 @@ export default function MenuScreen() {
             renderItem={({ item }) => (
               <MenuItemCard item={item} onAdd={handleAddPress} />
             )}
-            contentContainerClassName="px-4 pb-8"
+            contentContainerStyle={{
+              paddingHorizontal: spacing.lg,
+              paddingBottom: spacing.xxl,
+            }}
             showsVerticalScrollIndicator={false}
           />
         </Animated.View>

@@ -1,8 +1,9 @@
 import { Minus, Plus, Trash2 } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
 
-import { formatPrice } from "../lib/format";
 import type { CartItem } from "../context/CartContext";
+import { formatPrice } from "../lib/format";
+import { colors, spacing, typography } from "../lib/theme";
 
 type CartLineItemProps = {
   item: CartItem;
@@ -20,26 +21,66 @@ export function CartLineItem({
   const lineTotal = item.price * item.quantity;
 
   return (
-    <View className="mb-4 flex-row items-start border-b border-[#2e2e2e] pb-4">
-      <View className="flex-1 pr-3">
-        <Text className="text-base font-semibold text-white">{item.name}</Text>
+    <View
+      style={{
+        marginBottom: spacing.lg,
+        flexDirection: "row",
+        alignItems: "flex-start",
+        borderBottomWidth: 1,
+        borderBottomColor: colors.border,
+        paddingBottom: spacing.lg,
+      }}
+    >
+      <View style={{ flex: 1, paddingRight: spacing.md }}>
+        <Text style={[typography.bodyMedium, { color: colors.textPrimary }]}>
+          {item.name}
+        </Text>
         {item.customization ? (
-          <Text className="mt-1 text-sm text-neutral-400">
+          <Text
+            style={[
+              typography.caption,
+              { color: colors.textSecondary, marginTop: spacing.xs },
+            ]}
+          >
             {item.customization}
           </Text>
         ) : null}
 
-        <View className="mt-3 flex-row items-center">
+        <View
+          style={{
+            marginTop: spacing.md,
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
           <Pressable
             accessibilityRole="button"
             accessibilityLabel={`Decrease quantity of ${item.name}`}
             onPress={onDecrease}
-            className="h-8 w-8 items-center justify-center rounded-lg border border-[#404040]"
+            style={{
+              height: spacing.xl,
+              width: spacing.xl,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: spacing.sm,
+              borderWidth: 1,
+              borderColor: colors.borderMuted,
+            }}
           >
-            <Minus color="#ffffff" size={16} strokeWidth={2} />
+            <Minus color={colors.textPrimary} size={16} strokeWidth={2} />
           </Pressable>
 
-          <Text className="mx-4 min-w-6 text-center text-base font-medium text-white">
+          <Text
+            style={[
+              typography.bodyMedium,
+              {
+                color: colors.textPrimary,
+                marginHorizontal: spacing.lg,
+                minWidth: spacing.lg,
+                textAlign: "center",
+              },
+            ]}
+          >
             {item.quantity}
           </Text>
 
@@ -47,15 +88,23 @@ export function CartLineItem({
             accessibilityRole="button"
             accessibilityLabel={`Increase quantity of ${item.name}`}
             onPress={onIncrease}
-            className="h-8 w-8 items-center justify-center rounded-lg border border-[#404040]"
+            style={{
+              height: spacing.xl,
+              width: spacing.xl,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: spacing.sm,
+              borderWidth: 1,
+              borderColor: colors.borderMuted,
+            }}
           >
-            <Plus color="#ffffff" size={16} strokeWidth={2} />
+            <Plus color={colors.textPrimary} size={16} strokeWidth={2} />
           </Pressable>
         </View>
       </View>
 
-      <View className="items-end">
-        <Text className="text-base font-medium text-white">
+      <View style={{ alignItems: "flex-end" }}>
+        <Text style={[typography.bodyMedium, { color: colors.textPrimary }]}>
           {formatPrice(lineTotal)}
         </Text>
 
@@ -63,9 +112,9 @@ export function CartLineItem({
           accessibilityRole="button"
           accessibilityLabel={`Remove ${item.name} from cart`}
           onPress={onRemove}
-          className="mt-3 p-1"
+          style={{ marginTop: spacing.md, padding: spacing.xs }}
         >
-          <Trash2 color="#a3a3a3" size={20} strokeWidth={2} />
+          <Trash2 color={colors.textSecondary} size={20} strokeWidth={2} />
         </Pressable>
       </View>
     </View>

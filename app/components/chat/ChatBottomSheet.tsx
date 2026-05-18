@@ -18,14 +18,13 @@ import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
 import { useCart } from "../../context/CartContext";
 import { sendChatMessage } from "../../lib/api";
+import { colors, spacing, springSheet, typography } from "../../lib/theme";
 import { menuItems } from "@shared/menuItems";
 
 import { ChatBubble } from "./ChatBubble";
 import { SuggestionChips } from "./SuggestionChips";
 import { TypingIndicator } from "./TypingIndicator";
 import type { ChatMessage } from "./types";
-
-export type ChatBottomSheetRef = BottomSheetModal;
 
 type ChatBottomSheetProps = {
   onMessageCountChange?: (count: number) => void;
@@ -154,29 +153,41 @@ export const ChatBottomSheet = forwardRef<
       ref={sheetRef}
       snapPoints={snapPoints}
       enablePanDownToClose
-      animationConfigs={{
-        damping: 22,
-        stiffness: 220,
-        mass: 0.9,
-      }}
+      animationConfigs={springSheet}
       backdropComponent={renderBackdrop}
-      backgroundStyle={{ backgroundColor: "#1a1a1a" }}
-      handleIndicatorStyle={{ backgroundColor: "#737373", width: 40 }}
+      backgroundStyle={{ backgroundColor: colors.base }}
+      handleIndicatorStyle={{
+        backgroundColor: colors.textMuted,
+        width: spacing.xxl + spacing.sm,
+      }}
       keyboardBehavior="interactive"
       keyboardBlurBehavior="restore"
       android_keyboardInputMode="adjustResize"
       onChange={handleSheetChange}
     >
-      <View className="flex-1 bg-[#1a1a1a]">
-        <View className="flex-row items-center justify-between border-b border-[#2e2e2e] px-4 pb-3 pt-1">
-          <Text className="text-lg font-semibold text-white">AI Assistant</Text>
+      <View style={{ flex: 1, backgroundColor: colors.base }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderBottomWidth: 1,
+            borderBottomColor: colors.border,
+            paddingHorizontal: spacing.lg,
+            paddingBottom: spacing.md,
+            paddingTop: spacing.xs,
+          }}
+        >
+          <Text style={[typography.title, { color: colors.textPrimary }]}>
+            AI Assistant
+          </Text>
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Close assistant"
             onPress={() => sheetRef.current?.dismiss()}
-            className="p-2"
+            style={{ padding: spacing.sm }}
           >
-            <X color="#a3a3a3" size={22} strokeWidth={2} />
+            <X color={colors.textSecondary} size={22} strokeWidth={2} />
           </Pressable>
         </View>
 
@@ -187,56 +198,84 @@ export const ChatBottomSheet = forwardRef<
           inverted
           contentContainerStyle={{
             flexGrow: 1,
-            paddingTop: 12,
-            paddingBottom: 8,
+            paddingTop: spacing.md,
+            paddingBottom: spacing.sm,
           }}
           ListHeaderComponent={isSending ? <TypingIndicator /> : null}
         />
 
         {showSuggestions ? <SuggestionChips onSelect={sendMessage} /> : null}
 
-        <View className="flex-row items-end gap-2 border-t border-[#2e2e2e] px-4 py-3">
-          <BottomSheetTextInput
-            ref={inputRef}
-            value={input}
-            onChangeText={setInput}
-            editable={!isSending}
-            multiline
-            maxLength={500}
-            placeholder="Ask about the menu or your order"
-            placeholderTextColor="#737373"
-            onSubmitEditing={handleSend}
-            returnKeyType="send"
-            style={{
-              flex: 1,
-              maxHeight: 96,
-              minHeight: 44,
-              borderRadius: 12,
-              borderWidth: 1,
-              borderColor: "#404040",
-              backgroundColor: "#222222",
-              color: "#ffffff",
-              fontSize: 15,
-              paddingHorizontal: 16,
-              paddingVertical: 12,
-            }}
-          />
-
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel="Send message"
-            disabled={isSending || !input.trim()}
-            onPress={handleSend}
-            className={`h-11 w-11 items-center justify-center rounded-full ${
-              isSending || !input.trim() ? "bg-[#92400e]/40" : "bg-[#f59e0b]"
-            }`}
+        <View
+          style={{
+            borderTopWidth: 1,
+            borderTopColor: colors.border,
+            paddingHorizontal: spacing.lg,
+            paddingVertical: spacing.md,
+          }}
+        >
+          <Text
+            style={[
+              typography.label,
+              { color: colors.textMuted, marginBottom: spacing.sm },
+            ]}
           >
-            {isSending ? (
-              <ActivityIndicator color="#ffffff" size="small" />
-            ) : (
-              <ArrowUp color="#ffffff" size={20} strokeWidth={2.5} />
-            )}
-          </Pressable>
+            Message
+          </Text>
+          <View style={{ flexDirection: "row", alignItems: "flex-end", gap: spacing.sm }}>
+            <BottomSheetTextInput
+              ref={inputRef}
+              value={input}
+              onChangeText={setInput}
+              editable={!isSending}
+              multiline
+              maxLength={500}
+              accessibilityLabel="Message to the AI assistant"
+              onSubmitEditing={handleSend}
+              returnKeyType="send"
+              style={{
+                flex: 1,
+                maxHeight: spacing.xxl + spacing.xxl + spacing.lg,
+                minHeight: spacing.xxl + spacing.lg,
+                borderRadius: spacing.md,
+                borderWidth: 1,
+                borderColor: colors.borderMuted,
+                backgroundColor: colors.surface,
+                color: colors.textPrimary,
+                fontSize: typography.body.fontSize,
+                paddingHorizontal: spacing.lg,
+                paddingVertical: spacing.md,
+              }}
+            />
+
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Send message"
+              disabled={isSending || !input.trim()}
+              onPress={handleSend}
+              style={{
+                height: spacing.xl + spacing.md,
+                width: spacing.xl + spacing.md,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: spacing.xl + spacing.md,
+                backgroundColor:
+                  isSending || !input.trim()
+                    ? `${colors.accentMuted}80`
+                    : colors.accent,
+              }}
+            >
+              {isSending ? (
+                <ActivityIndicator color={colors.iconOnAccent} size="small" />
+              ) : (
+                <ArrowUp
+                  color={colors.iconOnAccent}
+                  size={20}
+                  strokeWidth={2.5}
+                />
+              )}
+            </Pressable>
+          </View>
         </View>
       </View>
     </BottomSheetModal>

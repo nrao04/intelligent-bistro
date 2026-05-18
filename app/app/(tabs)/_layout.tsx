@@ -3,6 +3,7 @@ import { View } from "react-native";
 
 import { ChatOverlay } from "../../components/chat/ChatOverlay";
 import { CustomTabBar } from "../../components/CustomTabBar";
+import { colors } from "../../lib/theme";
 
 export default function TabsLayout() {
   return (
@@ -11,7 +12,7 @@ export default function TabsLayout() {
         tabBar={(props) => <CustomTabBar {...props} />}
         screenOptions={{
           headerShown: false,
-          sceneStyle: { backgroundColor: "#1a1a1a" },
+          sceneStyle: { backgroundColor: colors.base },
         }}
       >
         <Tabs.Screen

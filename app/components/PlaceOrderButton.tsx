@@ -6,6 +6,8 @@ import Animated, {
   withSpring,
 } from "react-native-reanimated";
 
+import { colors, spacing, typography } from "../lib/theme";
+
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 type PlaceOrderButtonProps = {
@@ -36,12 +38,21 @@ export function PlaceOrderButton({ onPress, disabled }: PlaceOrderButtonProps) {
       onPress={onPress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      style={animatedStyle}
-      className={`mt-4 w-full items-center rounded-xl py-4 ${
-        disabled ? "bg-[#92400e]/50" : "bg-[#f59e0b]"
-      }`}
+      style={[
+        animatedStyle,
+        {
+          marginTop: spacing.lg,
+          width: "100%",
+          alignItems: "center",
+          borderRadius: spacing.md,
+          paddingVertical: spacing.lg,
+          backgroundColor: disabled ? `${colors.accentMuted}80` : colors.accent,
+        },
+      ]}
     >
-      <Text className="text-base font-semibold text-white">Place Order</Text>
+      <Text style={[typography.bodyMedium, { color: colors.iconOnAccent }]}>
+        Place Order
+      </Text>
     </AnimatedPressable>
   );
 }

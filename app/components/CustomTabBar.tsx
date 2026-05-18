@@ -3,10 +3,7 @@ import { UtensilsCrossed, ShoppingCart } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const ACTIVE = "#f59e0b";
-const INACTIVE = "#737373";
-const BAR_BG = "#1a1a1a";
-const BORDER = "#2e2e2e";
+import { colors, spacing, typography } from "../lib/theme";
 
 export function CustomTabBar({
   state,
@@ -17,12 +14,13 @@ export function CustomTabBar({
 
   return (
     <View
-      className="flex-row border-t"
       style={{
-        backgroundColor: BAR_BG,
-        borderTopColor: BORDER,
-        paddingBottom: Math.max(insets.bottom, 8),
-        paddingTop: 8,
+        flexDirection: "row",
+        backgroundColor: colors.base,
+        borderTopColor: colors.border,
+        borderTopWidth: 1,
+        paddingBottom: Math.max(insets.bottom, spacing.sm),
+        paddingTop: spacing.sm,
       }}
     >
       {state.routes.map((route, index) => {
@@ -42,7 +40,7 @@ export function CustomTabBar({
           }
         };
 
-        const color = isFocused ? ACTIVE : INACTIVE;
+        const color = isFocused ? colors.accent : colors.textMuted;
         const Icon = route.name === "menu" ? UtensilsCrossed : ShoppingCart;
 
         return (
@@ -52,12 +50,19 @@ export function CustomTabBar({
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={label}
             onPress={onPress}
-            className="flex-1 items-center justify-center py-2"
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+              paddingVertical: spacing.sm,
+            }}
           >
             <Icon color={color} size={22} strokeWidth={isFocused ? 2.25 : 2} />
             <Text
-              className="mt-1 text-xs font-medium"
-              style={{ color }}
+              style={[
+                typography.label,
+                { color, marginTop: spacing.xs },
+              ]}
             >
               {label}
             </Text>

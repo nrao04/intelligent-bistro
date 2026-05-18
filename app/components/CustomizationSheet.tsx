@@ -6,6 +6,7 @@ import {
 import { forwardRef, useCallback, useMemo } from "react";
 import { Pressable, Text, View } from "react-native";
 
+import { colors, spacing, springSheet, typography } from "../lib/theme";
 import type { MenuItem } from "@shared/menuItems";
 
 type CustomizationSheetProps = {
@@ -36,23 +37,47 @@ export const CustomizationSheet = forwardRef<
       ref={ref}
       snapPoints={snapPoints}
       enablePanDownToClose
+      animationConfigs={springSheet}
       backdropComponent={renderBackdrop}
-      backgroundStyle={{ backgroundColor: "#222222" }}
-      handleIndicatorStyle={{ backgroundColor: "#737373", width: 40 }}
+      backgroundStyle={{ backgroundColor: colors.surface }}
+      handleIndicatorStyle={{
+        backgroundColor: colors.textMuted,
+        width: spacing.xxl + spacing.sm,
+      }}
     >
-      <BottomSheetView className="px-4 pb-8">
-        <Text className="text-lg font-semibold text-white">{item?.name}</Text>
-        <Text className="mt-1 text-sm text-neutral-400">Select an option</Text>
+      <BottomSheetView style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.xxl }}>
+        <Text style={[typography.title, { color: colors.textPrimary }]}>
+          {item?.name}
+        </Text>
+        <Text
+          style={[
+            typography.caption,
+            { color: colors.textSecondary, marginTop: spacing.xs },
+          ]}
+        >
+          Select an option
+        </Text>
 
-        <View className="mt-4 gap-3">
+        <View style={{ marginTop: spacing.lg, gap: spacing.md }}>
           {item?.customizations.map((option) => (
             <Pressable
               key={option}
               accessibilityRole="button"
               onPress={() => onSelect(option)}
-              className="rounded-lg border border-[#404040] bg-[#1a1a1a] py-3"
+              style={{
+                borderRadius: spacing.sm,
+                borderWidth: 1,
+                borderColor: colors.borderMuted,
+                backgroundColor: colors.base,
+                paddingVertical: spacing.md,
+              }}
             >
-              <Text className="text-center text-base font-medium text-white">
+              <Text
+                style={[
+                  typography.bodyMedium,
+                  { color: colors.textPrimary, textAlign: "center" },
+                ]}
+              >
                 {option}
               </Text>
             </Pressable>

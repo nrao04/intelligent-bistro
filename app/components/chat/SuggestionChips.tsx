@@ -1,5 +1,6 @@
 import { Pressable, ScrollView, Text } from "react-native";
 
+import { colors, spacing, typography } from "../../lib/theme";
 import { SUGGESTION_CHIPS } from "./types";
 
 type SuggestionChipsProps = {
@@ -11,16 +12,29 @@ export function SuggestionChips({ onSelect }: SuggestionChipsProps) {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerClassName="px-4 pb-3 gap-2"
+      contentContainerStyle={{
+        paddingHorizontal: spacing.lg,
+        paddingBottom: spacing.md,
+        gap: spacing.sm,
+      }}
     >
       {SUGGESTION_CHIPS.map((chip) => (
         <Pressable
           key={chip}
           accessibilityRole="button"
           onPress={() => onSelect(chip)}
-          className="mr-2 rounded-full border border-[#404040] px-4 py-2"
+          style={{
+            marginRight: spacing.sm,
+            borderRadius: 999,
+            borderWidth: 1,
+            borderColor: colors.borderMuted,
+            paddingHorizontal: spacing.lg,
+            paddingVertical: spacing.sm,
+          }}
         >
-          <Text className="text-sm font-medium text-neutral-200">{chip}</Text>
+          <Text style={[typography.label, { color: colors.textSecondary }]}>
+            {chip}
+          </Text>
         </Pressable>
       ))}
     </ScrollView>

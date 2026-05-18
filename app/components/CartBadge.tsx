@@ -1,11 +1,13 @@
 import { useEffect, useRef } from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSequence,
   withSpring,
 } from "react-native-reanimated";
+
+import { colors, spacing, typography } from "../lib/theme";
 
 type CartBadgeProps = {
   count: number;
@@ -35,10 +37,23 @@ export function CartBadge({ count }: CartBadgeProps) {
 
   return (
     <Animated.View
-      style={animatedStyle}
-      className="absolute -right-1 -top-1 min-h-5 min-w-5 items-center justify-center rounded-full bg-[#f59e0b] px-1"
+      style={[
+        animatedStyle,
+        {
+          position: "absolute",
+          right: -spacing.xs,
+          top: -spacing.xs,
+          minHeight: spacing.xl,
+          minWidth: spacing.xl,
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: spacing.lg,
+          backgroundColor: colors.accent,
+          paddingHorizontal: spacing.xs,
+        },
+      ]}
     >
-      <Text className="text-[10px] font-semibold text-white">
+      <Text style={[typography.label, { color: colors.iconOnAccent, fontSize: 10 }]}>
         {count > 99 ? "99+" : count}
       </Text>
     </Animated.View>

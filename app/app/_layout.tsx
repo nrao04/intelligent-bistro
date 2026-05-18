@@ -7,17 +7,18 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { AppToast } from "../components/AppToast";
 import { CartProvider } from "../context/CartContext";
+import { colors } from "../lib/theme";
 
 export default function RootLayout() {
   return (
-    <GestureHandlerRootView className="flex-1 bg-[#1a1a1a]">
+    <GestureHandlerRootView style={{ flex: 1, backgroundColor: colors.base }}>
       <CartProvider>
         <BottomSheetModalProvider>
           <StatusBar style="light" />
           <Stack
             screenOptions={{
               headerShown: false,
-              contentStyle: { backgroundColor: "#1a1a1a" },
+              contentStyle: { backgroundColor: colors.base },
             }}
           >
             <Stack.Screen name="index" />

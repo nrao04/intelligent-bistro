@@ -9,6 +9,8 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
+import { colors, fabOffset, spacing } from "../../lib/theme";
+
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 type ChatFABProps = {
@@ -48,9 +50,15 @@ export function ChatFAB({ onPress, showPulse }: ChatFABProps) {
         animatedStyle,
         {
           position: "absolute",
-          right: 16,
-          bottom: 88,
+          right: spacing.lg,
+          bottom: fabOffset,
           zIndex: 50,
+          height: spacing.xxl + spacing.lg,
+          width: spacing.xxl + spacing.lg,
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: spacing.xxl + spacing.lg,
+          backgroundColor: colors.accent,
           shadowColor: "#000000",
           shadowOffset: { width: 0, height: 4 },
           shadowOpacity: 0.35,
@@ -58,9 +66,8 @@ export function ChatFAB({ onPress, showPulse }: ChatFABProps) {
           elevation: 8,
         },
       ]}
-      className="h-14 w-14 items-center justify-center rounded-full bg-[#f59e0b]"
     >
-      <MessageSquare color="#ffffff" size={24} strokeWidth={2} />
+      <MessageSquare color={colors.iconOnAccent} size={24} strokeWidth={2} />
     </AnimatedPressable>
   );
 }

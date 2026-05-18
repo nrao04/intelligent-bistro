@@ -49,11 +49,11 @@
 - [x] POST to backend, apply returned actions to cart in real time
 
 ## Phase 8: Polish
-- [ ] Reanimated animations on cart badge, item add confirmation, chat sheet open/close
-- [ ] Haptic feedback on add-to-cart
-- [ ] Dark charcoal theme (#1a1a1a base, #f59e0b amber accent) applied consistently
-- [ ] Typography and spacing consistent across all screens (4pt grid)
-- [ ] No placeholder text, no TODO comments, no console.log left in production code
+- [x] Reanimated animations on cart badge, item add confirmation, chat sheet open/close
+- [x] Haptic feedback on add-to-cart
+- [x] Dark charcoal theme (#1a1a1a base, #f59e0b amber accent) applied consistently
+- [x] Typography and spacing consistent across all screens (4pt grid)
+- [x] No placeholder text, no TODO comments, no console.log left in production code
 
 ## Phase 9: Final Check and README
 - [ ] Manual walkthrough of all core flows passes

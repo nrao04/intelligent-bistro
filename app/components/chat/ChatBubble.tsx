@@ -44,7 +44,7 @@ export function ChatBubble({ message }: ChatBubbleProps) {
       style={{
         marginBottom: spacing.lg,
         flexDirection: "row",
-        alignItems: "flex-end",
+        alignItems: "flex-start",
         paddingHorizontal: spacing.lg,
       }}
     >
@@ -53,7 +53,7 @@ export function ChatBubble({ message }: ChatBubbleProps) {
           marginRight: spacing.sm,
           width: spacing.xl,
           alignItems: "center",
-          paddingBottom: spacing.xs,
+          paddingTop: spacing.md,
         }}
       >
         <Bot color={colors.textMuted} size={18} strokeWidth={2} />

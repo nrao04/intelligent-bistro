@@ -16,8 +16,8 @@ export function CustomTabBar({
     <View
       style={{
         flexDirection: "row",
-        backgroundColor: colors.base,
-        borderTopColor: colors.border,
+        backgroundColor: "#111111",
+        borderTopColor: "#2a2a2a",
         borderTopWidth: 1,
         paddingBottom: Math.max(insets.bottom, spacing.sm),
         paddingTop: spacing.sm,

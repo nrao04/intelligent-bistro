@@ -16,7 +16,7 @@ import { CustomizationSheet } from "../../components/CustomizationSheet";
 import { MenuItemCard } from "../../components/MenuItemCard";
 import { MenuSkeletonList } from "../../components/MenuSkeletonList";
 import { useCart } from "../../context/CartContext";
-import { colors, spacing, typography } from "../../lib/theme";
+import { colors, fabOffset, spacing, typography } from "../../lib/theme";
 import { menuItems, type MenuCategory, type MenuItem } from "@shared/menuItems";
 
 type CategoryFilter = "all" | MenuCategory;
@@ -129,6 +129,7 @@ export default function MenuScreen() {
           paddingHorizontal: spacing.lg,
           paddingBottom: spacing.lg,
           gap: spacing.sm,
+          alignItems: "flex-start",
         }}
       >
         {CATEGORIES.map((category) => {
@@ -187,7 +188,7 @@ export default function MenuScreen() {
             )}
             contentContainerStyle={{
               paddingHorizontal: spacing.lg,
-              paddingBottom: spacing.xxl,
+              paddingBottom: fabOffset + spacing.xl,
             }}
             showsVerticalScrollIndicator={false}
           />

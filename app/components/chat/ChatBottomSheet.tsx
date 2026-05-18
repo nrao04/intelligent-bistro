@@ -8,6 +8,7 @@ import { ArrowUp, X } from "lucide-react-native";
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
@@ -52,12 +53,9 @@ export const ChatBottomSheet = forwardRef<
 
   const showSuggestions = messages.length === 0 && !isSending;
 
-  const notifyCount = useCallback(
-    (next: ChatMessage[]) => {
-      onMessageCountChange?.(next.length);
-    },
-    [onMessageCountChange]
-  );
+  useEffect(() => {
+    onMessageCountChange?.(messages.length);
+  }, [messages.length, onMessageCountChange]);
 
   const renderBackdrop = useCallback(
     (props: React.ComponentProps<typeof BottomSheetBackdrop>) => (
@@ -89,11 +87,7 @@ export const ChatBottomSheet = forwardRef<
         content: trimmed,
       };
 
-      setMessages((current) => {
-        const next = [userMessage, ...current];
-        notifyCount(next);
-        return next;
-      });
+      setMessages((current) => [userMessage, ...current]);
       setInput("");
       setIsSending(true);
 
@@ -112,11 +106,7 @@ export const ChatBottomSheet = forwardRef<
           content: reply,
         };
 
-        setMessages((current) => {
-          const next = [assistantMessage, ...current];
-          notifyCount(next);
-          return next;
-        });
+        setMessages((current) => [assistantMessage, ...current]);
       } catch (error) {
         const assistantMessage: ChatMessage = {
           id: createMessageId(),
@@ -127,16 +117,12 @@ export const ChatBottomSheet = forwardRef<
               : "Something went wrong while talking to the assistant.",
         };
 
-        setMessages((current) => {
-          const next = [assistantMessage, ...current];
-          notifyCount(next);
-          return next;
-        });
+        setMessages((current) => [assistantMessage, ...current]);
       } finally {
         setIsSending(false);
       }
     },
-    [applyAIActions, isSending, items, notifyCount]
+    [applyAIActions, isSending, items]
   );
 
   const handleSend = useCallback(() => {
@@ -211,17 +197,10 @@ export const ChatBottomSheet = forwardRef<
             borderTopWidth: 1,
             borderTopColor: colors.border,
             paddingHorizontal: spacing.lg,
-            paddingVertical: spacing.md,
+            paddingTop: spacing.md,
+            paddingBottom: spacing.md,
           }}
         >
-          <Text
-            style={[
-              typography.label,
-              { color: colors.textMuted, marginBottom: spacing.sm },
-            ]}
-          >
-            Message
-          </Text>
           <View style={{ flexDirection: "row", alignItems: "flex-end", gap: spacing.sm }}>
             <BottomSheetTextInput
               ref={inputRef}
@@ -230,6 +209,8 @@ export const ChatBottomSheet = forwardRef<
               editable={!isSending}
               multiline
               maxLength={500}
+              placeholder="Message the assistant..."
+              placeholderTextColor={colors.textMuted}
               accessibilityLabel="Message to the AI assistant"
               onSubmitEditing={handleSend}
               returnKeyType="send"

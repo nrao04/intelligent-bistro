@@ -61,4 +61,4 @@ export const springSheet = {
   overshootClamping: false,
 };
 
-export const fabOffset = spacing.xxl + spacing.xxl + spacing.lg;
+export const fabOffset = 96;

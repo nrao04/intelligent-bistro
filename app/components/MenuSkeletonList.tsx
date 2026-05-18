@@ -10,11 +10,11 @@ import Animated, {
 import { colors, spacing } from "../lib/theme";
 
 function SkeletonCard() {
-  const opacity = useSharedValue(0.45);
+  const opacity = useSharedValue(0.6);
 
   useEffect(() => {
     opacity.value = withRepeat(
-      withTiming(0.85, { duration: 900 }),
+      withTiming(1, { duration: 800 }),
       -1,
       true
     );

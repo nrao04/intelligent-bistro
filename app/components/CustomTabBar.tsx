@@ -3,6 +3,8 @@ import { UtensilsCrossed, ShoppingCart } from "lucide-react-native";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { useCart } from "../context/CartContext";
+import { CartBadge } from "./CartBadge";
 import { colors, spacing, typography } from "../lib/theme";
 
 export function CustomTabBar({
@@ -11,6 +13,7 @@ export function CustomTabBar({
   navigation,
 }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
+  const { itemCount } = useCart();
 
   return (
     <View
@@ -42,6 +45,7 @@ export function CustomTabBar({
 
         const color = isFocused ? colors.accent : colors.textMuted;
         const Icon = route.name === "menu" ? UtensilsCrossed : ShoppingCart;
+        const isCart = route.name === "cart";
 
         return (
           <Pressable
@@ -57,7 +61,10 @@ export function CustomTabBar({
               paddingVertical: spacing.sm,
             }}
           >
-            <Icon color={color} size={22} strokeWidth={isFocused ? 2.25 : 2} />
+            <View style={{ position: "relative" }}>
+              <Icon color={color} size={22} strokeWidth={isFocused ? 2.25 : 2} />
+              {isCart ? <CartBadge count={itemCount} /> : null}
+            </View>
             <Text
               style={[
                 typography.label,

@@ -13,8 +13,7 @@ export function SuggestionChips({ onSelect }: SuggestionChipsProps) {
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
-        paddingHorizontal: spacing.lg,
-        paddingBottom: spacing.md,
+        paddingBottom: spacing.xs,
         gap: spacing.sm,
       }}
     >

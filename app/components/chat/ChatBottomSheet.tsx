@@ -190,7 +190,21 @@ export const ChatBottomSheet = forwardRef<
           ListHeaderComponent={isSending ? <TypingIndicator /> : null}
         />
 
-        {showSuggestions ? <SuggestionChips onSelect={sendMessage} /> : null}
+        {showSuggestions ? (
+          <View style={{ paddingHorizontal: spacing.lg, paddingBottom: spacing.md }}>
+            <Text
+              style={[typography.title, { color: colors.textPrimary, marginBottom: spacing.xs }]}
+            >
+              How can I help?
+            </Text>
+            <Text
+              style={[typography.caption, { color: colors.textSecondary, marginBottom: spacing.lg }]}
+            >
+              Ask me to recommend dishes, build a meal, or update your cart.
+            </Text>
+            <SuggestionChips onSelect={sendMessage} />
+          </View>
+        ) : null}
 
         <View
           style={{

@@ -1,9 +1,10 @@
 import { Plus } from "lucide-react-native";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withSequence,
   withSpring,
   withTiming,
@@ -19,15 +20,27 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 type MenuItemCardProps = {
   item: MenuItem;
   onAdd: (item: MenuItem) => void;
+  index?: number;
 };
 
-export function MenuItemCard({ item, onAdd }: MenuItemCardProps) {
+export function MenuItemCard({ item, onAdd, index = 0 }: MenuItemCardProps) {
   const Icon = getMenuIcon(item.icon);
   const cardScale = useSharedValue(1);
   const confirmOpacity = useSharedValue(0);
+  const enterTranslateY = useSharedValue(16);
+
+  useEffect(() => {
+    enterTranslateY.value = withDelay(
+      index * 55,
+      withSpring(0, { damping: 20, stiffness: 240 })
+    );
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const cardAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: cardScale.value }],
+    transform: [
+      { scale: cardScale.value },
+      { translateY: enterTranslateY.value },
+    ],
   }));
 
   const confirmAnimatedStyle = useAnimatedStyle(() => ({
@@ -53,11 +66,11 @@ export function MenuItemCard({ item, onAdd }: MenuItemCardProps) {
         {
           marginBottom: spacing.md,
           flexDirection: "row",
-          borderRadius: 12,
+          borderRadius: 14,
           borderWidth: 1,
           borderColor: colors.border,
           backgroundColor: colors.surface,
-          padding: spacing.lg,
+          padding: spacing.md,
         },
       ]}
     >
@@ -71,7 +84,7 @@ export function MenuItemCard({ item, onAdd }: MenuItemCardProps) {
             right: 0,
             bottom: 0,
             left: 0,
-            borderRadius: 12,
+            borderRadius: 14,
             borderWidth: 2,
             borderColor: colors.accent,
           },
@@ -80,34 +93,54 @@ export function MenuItemCard({ item, onAdd }: MenuItemCardProps) {
 
       <View
         style={{
-          marginRight: spacing.lg,
+          marginRight: spacing.md,
           height: spacing.xxl + spacing.lg,
           width: spacing.xxl + spacing.lg,
           alignItems: "center",
           justifyContent: "center",
           borderRadius: spacing.sm,
-          backgroundColor: colors.border,
+          backgroundColor: "#231a00",
         }}
       >
-        <Icon color={colors.accent} size={24} strokeWidth={2} />
+        <Icon color={colors.accent} size={22} strokeWidth={1.75} />
       </View>
 
-      <View style={{ flex: 1, paddingRight: spacing.md }}>
-        <View style={{ flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: spacing.sm }}>
-          <Text
-            style={[typography.bodyMedium, { color: colors.textPrimary, flexShrink: 1 }]}
+      <View style={{ flex: 1, paddingRight: spacing.sm }}>
+        <Text
+          style={[typography.bodyMedium, { color: colors.textPrimary }]}
+          numberOfLines={1}
+        >
+          {item.name}
+        </Text>
+
+        {item.isPopular ? (
+          <View
+            style={{
+              alignSelf: "flex-start",
+              marginTop: spacing.xs,
+              marginBottom: spacing.xs,
+              borderRadius: 99,
+              backgroundColor: "#2e1f00",
+              borderWidth: 1,
+              borderColor: "#5a3d00",
+              paddingHorizontal: spacing.sm,
+              paddingVertical: 2,
+            }}
           >
-            {item.name}
-          </Text>
-          {item.isPopular ? (
-            <Text style={[typography.label, { color: colors.accent }]}>Popular</Text>
-          ) : null}
-        </View>
+            <Text
+              style={[typography.label, { color: colors.accent, fontSize: 10 }]}
+            >
+              Popular
+            </Text>
+          </View>
+        ) : (
+          <View style={{ marginTop: spacing.xs, marginBottom: spacing.xs, height: 16 }} />
+        )}
 
         <Text
           style={[
             typography.caption,
-            { color: colors.textSecondary, marginTop: spacing.xs },
+            { color: colors.textSecondary },
           ]}
           numberOfLines={2}
         >
@@ -142,11 +175,11 @@ export function MenuItemCard({ item, onAdd }: MenuItemCardProps) {
           justifyContent: "center",
           borderRadius: spacing.sm,
           backgroundColor: colors.accent,
-          paddingHorizontal: spacing.lg,
+          paddingHorizontal: spacing.md,
         }}
       >
         <View style={{ flexDirection: "row", alignItems: "center", gap: spacing.xs }}>
-          <Plus color={colors.iconOnAccent} size={16} strokeWidth={2.5} />
+          <Plus color={colors.iconOnAccent} size={15} strokeWidth={2.5} />
           <Text style={[typography.label, { color: colors.iconOnAccent }]}>Add</Text>
         </View>
       </AnimatedPressable>
